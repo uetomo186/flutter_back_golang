@@ -10,10 +10,12 @@ class TopPage extends StatefulWidget {
 class _TopPageState extends State<TopPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text('トップページ'),
-      ),
+          child: Container(
+        padding: const EdgeInsets.all(16),
+        height: 300,
+      )),
     );
   }
 }
