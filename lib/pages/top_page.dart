@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_back_golang/pages/login_page.dart';
+import 'package:flutter_back_golang/pages/signup_page.dart';
 import 'package:flutter_back_golang/widgets/app_button.dart';
 import 'package:flutter_back_golang/widgets/app_logo.dart';
+import 'package:gap/gap.dart';
 
 class TopPage extends StatefulWidget {
   const TopPage({super.key});
@@ -19,13 +22,35 @@ class _TopPageState extends State<TopPage> {
         height: 300,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           const AppLogo(),
+          const Gap(24),
           const Text('ようこそ！スーパーチャットへ'),
+          const Gap(16),
           const Text('ログインして始めよう！'),
+          const Gap(24),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              AppButton(width: 80, onPressed: () {}, text: 'ログイン'),
-              AppButton(width: 80, onPressed: () {}, text: '新規登録')
+              AppButton(
+                  width: 80,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
+                    );
+                  },
+                  text: 'ログイン'),
+              const SizedBox(width: 24),
+              AppButton(
+                  width: 80,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const SignupPage(),
+                      ),
+                    );
+                  },
+                  text: '新規登録')
             ],
           )
         ]),
