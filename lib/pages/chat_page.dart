@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_back_golang/widgets/app_drawer.dart';
+import 'package:flutter_back_golang/widgets/message_text_field.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -12,13 +13,15 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat Page'),
-      ),
-      drawer: const AppDrawer(),
-      body: const Center(
-        child: Text('Chat Page'),
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('Chat Page'),
+        ),
+        drawer: const AppDrawer(),
+        body: const Column(
+          children: [
+            Spacer(),
+            MessageTextField(),
+          ],
+        ));
   }
 }
