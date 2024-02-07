@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_back_golang/pages/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -12,41 +13,50 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Column(children: [
-        const Spacer(),
-        ListTile(
-          title: TextButton(
-            onPressed: () async {
-              //ログアウトの処理
-              final result = await _logout(context);
-            },
-            child: const Text('ログアウト',
+      child: Column(
+        children: [
+          const Spacer(),
+          // logout button
+          ListTile(
+            title: TextButton(
+              onPressed: () async {
+                final result = await _logout(context);
+                if (result && context.mounted) {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ),
+                  );
+                }
+              },
+              child: const Text(
+                'Logout',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                   color: Colors.red,
                   decoration: TextDecoration.underline,
-                )),
+                ),
+              ),
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 
   Future<bool> _logout(BuildContext context) async {
-    // ログアウトの処理
     try {
       await Supabase.instance.client.auth.signOut();
       return true;
     } catch (e) {
-      //スナックバーを表示
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(e.toString()),
           backgroundColor: Colors.red,
         ),
       );
+      return false;
     }
-    return false;
   }
 }
