@@ -1,33 +1,25 @@
 import 'package:flutter/material.dart';
 
-class AppTextFormField extends StatelessWidget {
-  const AppTextFormField({
-    super.key,
-    this.controller,
-    this.labelText = '',
-    this.obscureText = false,
-    this.validator,
-  });
-  // 入力値を管理するコントローラー
-  final TextEditingController? controller;
-  // 入力欄のラベル
-  final String labelText;
-  //入力値の値をマスクキングするのか
-  final bool obscureText;
-  //入力値のバリデーション処理
-  final FormFieldValidator<String>? validator;
+class MessageTextField extends StatefulWidget {
+  const MessageTextField({super.key});
 
   @override
+  State<MessageTextField> createState() => _MessageTextFieldState();
+}
+
+class _MessageTextFieldState extends State<MessageTextField> {
+  @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        border: const OutlineInputBorder(),
-        labelText: labelText,
+    return Container(
+      // テキスト入力欄を送信ボタンと横並びに設定
+      child: const Row(
+        children: [
+          Expanded(
+            child: TextField(),
+          ),
+          Icon(Icons.send),
+        ],
       ),
-      obscureText: obscureText,
-      cursorColor: Colors.green,
-      validator: validator,
     );
   }
 }
