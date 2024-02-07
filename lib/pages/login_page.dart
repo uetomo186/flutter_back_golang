@@ -3,7 +3,7 @@ import 'package:flutter_back_golang/pages/chat_page.dart';
 import 'package:flutter_back_golang/pages/signup_page.dart';
 import 'package:flutter_back_golang/widgets/app_button.dart';
 import 'package:flutter_back_golang/widgets/app_logo.dart';
-import 'package:flutter_back_golang/widgets/message_text_field.dart';
+import 'package:flutter_back_golang/widgets/app_text_form_field.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginPage extends StatefulWidget {
