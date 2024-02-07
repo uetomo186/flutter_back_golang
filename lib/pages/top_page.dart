@@ -31,7 +31,7 @@ class _TopPageState extends State<TopPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               AppButton(
-                  width: 80,
+                  width: 120,
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -42,7 +42,7 @@ class _TopPageState extends State<TopPage> {
                   text: 'ログイン'),
               const SizedBox(width: 24),
               AppButton(
-                  width: 80,
+                  width: 120,
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(

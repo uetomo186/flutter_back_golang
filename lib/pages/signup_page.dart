@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_back_golang/pages/chat_page.dart';
 import 'package:flutter_back_golang/pages/login_page.dart';
 import 'package:flutter_back_golang/widgets/app_button.dart';
 import 'package:flutter_back_golang/widgets/app_logo.dart';
@@ -17,6 +18,7 @@ class _SignupPageState extends State<SignupPage> {
   final _emailControler = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -95,9 +97,17 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(height: 24),
                 AppButton(
                     height: 48,
+                    isLoading: _isLoading,
                     onPressed: () async {
                       // バリデーションエラーがある場合、処理を中断する
                       if (!_formKey.currentState!.validate()) return;
+                      final result = await _signup(
+                        email: _emailControler.text,
+                        password: _passwordController.text,
+                      );
+                      if (result == null || !mounted) return;
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const ChatPage()));
                     },
                     text: '続ける'),
                 const SizedBox(height: 24),
@@ -127,8 +137,24 @@ class _SignupPageState extends State<SignupPage> {
     required String email,
     required String password,
   }) async {
-    // ここにサインアップ処理を実装
-    return await Supabase.instance.client.auth
-        .signUp(email: email, password: password);
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      return await Supabase.instance.client.auth
+          .signUp(email: email, password: password);
+    } catch (e) {
+      // ここにサインアップ処理を実装
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 }
