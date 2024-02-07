@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_back_golang/pages/login_page.dart';
 import 'package:flutter_back_golang/widgets/app_button.dart';
 import 'package:flutter_back_golang/widgets/app_logo.dart';
 import 'package:flutter_back_golang/widgets/message_text_field.dart';
@@ -60,7 +61,8 @@ class _SignupPageState extends State<SignupPage> {
                     const SizedBox(width: 8),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const LoginPage()));
                       },
                       child: const Text('ログイン'),
                     )
