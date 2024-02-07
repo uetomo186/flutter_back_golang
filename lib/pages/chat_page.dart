@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_back_golang/widgets/app_drawer.dart';
+import 'package:flutter_back_golang/widgets/message_list.dart';
 import 'package:flutter_back_golang/widgets/message_text_field.dart';
 
 class ChatPage extends StatefulWidget {
@@ -17,10 +18,12 @@ class _ChatPageState extends State<ChatPage> {
           title: const Text('Chat Page'),
         ),
         drawer: const AppDrawer(),
-        body: const Column(
+        body: Column(
           children: [
-            Spacer(),
-            MessageTextField(),
+            Expanded(
+              child: MessageList(),
+            ),
+            const MessageTextField(),
           ],
         ));
   }

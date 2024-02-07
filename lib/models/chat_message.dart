@@ -25,3 +25,7 @@ enum Sender {
   user,
   bot;
 }
+
+String senderToString(Sender sender) {
+  return sender.toString().split('.').last;
+}
