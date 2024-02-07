@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const AppLogo(),
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
               const Text(
                 'おかえりなさい',
                 style: TextStyle(
@@ -30,13 +30,14 @@ class _LoginPageState extends State<LoginPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
               const Form(
                 child: Column(
                   children: [
                     AppTextFormField(
                       labelText: 'メールアドレス',
                     ),
+                    SizedBox(height: 25),
                     AppTextFormField(
                       labelText: 'パスワード',
                       obscureText: true,
@@ -53,9 +54,11 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 25),
               Row(mainAxisSize: MainAxisSize.min, children: [
                 const Text("アカウントをお持ちではありませんか?"),
-                const SizedBox(width: 8),
+                const SizedBox(width: 2),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                   child: const Text('サインアップ'),
                 ),
               ])
