@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_back_golang/pages/chat_page.dart';
 import 'package:flutter_back_golang/pages/login_page.dart';
 import 'package:flutter_back_golang/pages/signup_page.dart';
 import 'package:flutter_back_golang/widgets/app_button.dart';
 import 'package:flutter_back_golang/widgets/app_logo.dart';
 import 'package:gap/gap.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class TopPage extends StatefulWidget {
   const TopPage({super.key});
@@ -13,6 +15,21 @@ class TopPage extends StatefulWidget {
 }
 
 class _TopPageState extends State<TopPage> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final user = Supabase.instance.client.auth.currentUser;
+      if (user != null) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const ChatPage(),
+          ),
+        );
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
