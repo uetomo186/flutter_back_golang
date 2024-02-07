@@ -24,6 +24,7 @@ dependencies:
   json_serializable: ^6.7.1
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.10
+  chat_bubbles: ^1.6.0
 
 dev_dependencies:
   flutter_test:
