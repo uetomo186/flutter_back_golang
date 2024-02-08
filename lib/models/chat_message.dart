@@ -12,13 +12,19 @@ class ChatMessage with _$ChatMessage {
     required String sender,
     required DateTime createdAt,
   }) = _ChatMessage;
-  // final String? id;
-  // final String roomId;
-  // final String message;
-  // final String sender;
-  // final DateTime createdAt;
+
   factory ChatMessage.fromJson(Map<String, dynamic> json) =>
       _$ChatMessageFromJson(json);
+}
+
+extension ChatMessageExtension on ChatMessage {
+  Map<String, dynamic> toApiJson() {
+    final role = sender == senderToString(Sender.user) ? "user" : "assistant";
+    return {
+      "role": role,
+      "content": message,
+    };
+  }
 }
 
 enum Sender {
