@@ -8,7 +8,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class ChatPage extends StatefulWidget {
   const ChatPage({
     super.key,
+    this.room,
   });
+
+  final ChatRoom? room;
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -21,8 +24,8 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     userId = Supabase.instance.client.auth.currentUser!.id;
-    room =
-        ChatRoom(userId: userId, name: 'New chat', createdAt: DateTime.now());
+    room = widget.room ??
+        ChatRoom(userId: userId, name: 'チャットルーム', createdAt: DateTime.now());
 
     super.initState();
   }
