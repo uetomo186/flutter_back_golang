@@ -33,11 +33,15 @@ class MessageList extends StatelessWidget {
           image: AssetImage('assets/images/supabase.png'),
         ),
       ),
-      child: ListView(
-        children: [
-          for (final message in messages) MessageBubble(message: message),
-        ],
-      ),
+      child: StreamBuilder(
+          stream: getMessageStream(roomId),
+          builder: (context, AsyncSnapshot snapshot) {
+            return ListView(
+              children: [
+                for (final message in messages) MessageBubble(message: message),
+              ],
+            );
+          }),
     );
   }
 
