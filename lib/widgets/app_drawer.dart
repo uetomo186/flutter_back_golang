@@ -22,7 +22,7 @@ class _AppDrawerState extends State<AppDrawer> {
               leading: const Icon(Icons.add),
               onTap: () {
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const ChatPage()));
+                    MaterialPageRoute(builder: (context) => ChatPage()));
               },
               title: const Text(
                 '新しいチャットルームを作成',

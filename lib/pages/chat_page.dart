@@ -25,7 +25,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     userId = Supabase.instance.client.auth.currentUser!.id;
     room = widget.room ??
-        ChatRoom(userId: userId, name: 'チャットルーム', createdAt: DateTime.now());
+        ChatRoom(userId: userId, name: 'New chat', createdAt: DateTime.now());
 
     super.initState();
   }
@@ -35,13 +35,28 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(room.name),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final result = await deleteChatRoom(context, roomId: room.id!);
+              if (result != null && context.mounted) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const ChatPage(),
+                  ),
+                );
+              }
+            },
+            icon: const Icon(Icons.delete),
+          ),
+        ],
       ),
       drawer: const AppDrawer(),
       body: Column(
         children: [
           Expanded(
             child: MessageList(
-              roomId: room.id ?? '',
+              roomId: room.id,
             ),
           ),
           MessageTextField(
@@ -112,5 +127,27 @@ class _ChatPageState extends State<ChatPage> {
       );
     }
     return;
+  }
+
+  Future<ChatRoom?> deleteChatRoom(
+    BuildContext context, {
+    required String roomId,
+  }) async {
+    try {
+      final result = await Supabase.instance.client
+          .from('chat_rooms')
+          .delete()
+          .eq('room_id', roomId)
+          .select();
+      return ChatRoom.fromJson(result.first);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return null;
+    }
   }
 }
