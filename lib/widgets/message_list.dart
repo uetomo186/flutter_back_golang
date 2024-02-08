@@ -4,9 +4,9 @@ import 'package:flutter_back_golang/widgets/message_bubble.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MessageList extends StatelessWidget {
-  MessageList({super.key, required this.roomId});
+  const MessageList({super.key, required this.roomId});
 
-  final String roomId;
+  final String? roomId;
 
   @override
   Widget build(BuildContext context) {
