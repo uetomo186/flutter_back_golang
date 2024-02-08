@@ -8,21 +8,6 @@ class MessageList extends StatelessWidget {
 
   final String roomId;
 
-  final messages = [
-    ChatMessage(
-      roomId: '1',
-      message: 'これはテストです。',
-      sender: Sender.bot.toString(),
-      createdAt: DateTime.now(),
-    ),
-    ChatMessage(
-      roomId: '1',
-      message: 'こんにちは！',
-      sender: Sender.bot.toString(),
-      createdAt: DateTime.now(),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +21,15 @@ class MessageList extends StatelessWidget {
       child: StreamBuilder(
           stream: getMessageStream(roomId),
           builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text('エラーが発生しました'),
+              );
+            }
+            // データが取得できた場合
+            final messages = snapshot.data;
             return ListView(
+              reverse: true,
               children: [
                 for (final message in messages) MessageBubble(message: message),
               ],
