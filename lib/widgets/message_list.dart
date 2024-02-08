@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_back_golang/models/chat_message.dart';
 import 'package:flutter_back_golang/widgets/message_bubble.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MessageList extends StatelessWidget {
-  MessageList({super.key});
+  MessageList({super.key, required this.roomId});
+
+  final String roomId;
 
   final messages = [
     ChatMessage(
@@ -36,5 +39,18 @@ class MessageList extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Stream<List<ChatMessage>> getMessageStream(String? roomId) {
+    if (roomId == null) return const Stream.empty();
+
+    return Supabase.instance.client
+        .from('chat_masseges')
+        .stream(primaryKey: ['message_id'])
+        .eq('room_id', roomId)
+        .order('created_at')
+        .map((snapshot) {
+          return snapshot.map(ChatMessage.fromJson).toList();
+        });
   }
 }
