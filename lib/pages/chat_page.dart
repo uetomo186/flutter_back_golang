@@ -37,7 +37,9 @@ class _ChatPageState extends State<ChatPage> {
       body: Column(
         children: [
           Expanded(
-            child: MessageList(),
+            child: MessageList(
+              roomId: room.id ?? '',
+            ),
           ),
           MessageTextField(
             onSubmitted: (message) async {

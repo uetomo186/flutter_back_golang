@@ -15,6 +15,7 @@ class TopPage extends StatefulWidget {
 }
 
 class _TopPageState extends State<TopPage> {
+  // final nonNullableString = nullableString ?? 'デフォルト値';
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
